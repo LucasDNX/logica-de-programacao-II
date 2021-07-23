@@ -1,0 +1,48 @@
+<canvas width="600" height="400"></canvas>
+
+<script type="text/javascript">
+    var tela = document.querySelector('canvas');
+    var pincel = tela.getContext('2d');
+    var color = "black";
+
+    pincel.fillStyle = "grey";
+    pincel.fillRect(0,0,600,400);
+
+    tela.onclick = displayCircle;
+    tela.oncontextmenu = changeColor;
+
+    function drawCircle(x, y, cor){
+        pincel.fillStyle = cor;
+        pincel.beginPath();
+        pincel.arc(x, y, 10, 0, 2 * 3.14);
+        pincel.fill();
+    }
+
+    function displayCircle(evento){
+        var cor = color;
+        var x = evento.pageX - tela.offsetLeft;
+        var y = evento.pageY - tela.offsetTop;
+        drawCircle(x, y, cor);
+        console.log('Você clicou em x:' + x + ', y:' + y);
+    }
+
+    var arrayCor = ["preto", "branco", "azul", "vermelho", "verde", "amarelo"]
+    var arrayColor = ["black", "white", "blue", "red", "green", "yellow"]
+
+    function convertColor(cor, arrayCor, arrayColor){
+
+        for (var i = 0; i < arrayCor.length; i++){
+            if(cor == arrayCor[i]){
+                return arrayColor[i];
+            }
+        }
+
+        alert("Cor indisponível. Tente: preto, branco, azul, vermelho, verde ou amarelo");
+    }
+
+    function changeColor(){
+        var cor = prompt("escolha uma cor");
+        color = convertColor(cor, arrayCor, arrayColor);
+        return false;
+    }
+</script>
